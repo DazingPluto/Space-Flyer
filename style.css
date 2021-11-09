@@ -28,6 +28,5 @@ body{
 }
 .projectile{
     background-color: red;
-    width: 20px;
-    height: 10px;
+    position: absolute;
 }

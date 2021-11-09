@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     let spaceshipLeft = 220;
     let spaceshipBottom = 100;
-    let gravity = 2;
+    let gravity = 6;
     let thrust = 10;
     let projectileBottom = 220;
     let projectileLeft = 100;
@@ -15,18 +15,29 @@ document.addEventListener('DOMContentLoaded', () =>{
 function startGame() {
     spaceship.style.bottom = spaceshipBottom + 'px';
     spaceship.style.left = spaceshipLeft + 'px';
-    spaceshipBottom -= gravity;
+    if(spaceshipBottom > 10) spaceshipBottom -= gravity;
     projectile.style.bottom = projectileBottom + 'px';
     projectile.style.left =  projectileLeft + 'px';
     }
  let timerID = setInterval(startGame, 20);
 
+ function control(e) {
+     if(e.keyCode === 32){
+         jump()
+     }
+ }
+
 
 function jump(){
-    spaceshipBottom += 50;
+   if(spaceshipBottom < 750) spaceshipBottom += 130;
     spaceship.style.bottom = spaceshipBottom + 'px';
+    console.log(spaceshipBottom);
 }
-addEventListener('keyup', jump);
+addEventListener('keyup', control);
+
+function generateMeteor() {
+
+}
 
 })
 
