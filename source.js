@@ -19,6 +19,16 @@ function startGame() {
     if(spaceshipBottom > 10) spaceshipBottom -= gravity;
     projectile.style.bottom = projectileBottom + 'px';
     projectile.style.left =  projectileLeft + 'px';
+
+    if(spaceship.style.width === 60 + 'px'){function generateBullet(){
+        let bulletLeft = spaceship.style.left;
+        let bulletBottom = spaceship.style.bottom
+        const bullet = document.createElement('div');
+        bullet.classList.add('bullet');
+        gameDisplay.appendChild(bullet);
+        bullet.style.bottom = bulletBottom;
+        bullet.style.left = bulletLeft;
+    }}
     }
  let timerID = setInterval(startGame, 20);
 
@@ -61,18 +71,6 @@ function generateMeteor() {
 }
 generateMeteor();
 
-function generateBullet(){
-    let bulletLeft = spaceship.style.left;
-    let bulletBottom = spaceship.style.bottom
-    const bullet = document.createElement('div');
-    bullet.classList.add('bullet');
-    gameDisplay.appendChild(bullet);
-    bullet.style.bottom = bulletBottom;
-    bullet.style.left = bulletLeft;
-}
-setInterval(generateBullet, 20);
-
-generateBullet();
 
 
 
