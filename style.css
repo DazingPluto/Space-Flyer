@@ -36,3 +36,9 @@ body{
     height: 300px;
     position: absolute;
 }
+.bullet{
+    background-color: red;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}

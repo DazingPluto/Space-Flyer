@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     let thrust = 10;
     let projectileBottom = spaceshipBottom;
     let projectileLeft = spaceshipLeft;
+    let spaceshipPosition = spaceship.style.bottom;
 
 
 function startGame() {
@@ -60,6 +61,18 @@ function generateMeteor() {
 }
 generateMeteor();
 
+function generateBullet(){
+    let bulletLeft = spaceship.style.left;
+    let bulletBottom = spaceship.style.bottom
+    const bullet = document.createElement('div');
+    bullet.classList.add('bullet');
+    gameDisplay.appendChild(bullet);
+    bullet.style.bottom = bulletBottom;
+    bullet.style.left = bulletLeft;
+}
+setInterval(generateBullet, 20);
+
+generateBullet();
 
 
 
