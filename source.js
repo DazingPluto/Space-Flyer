@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () =>{
     let spaceshipBottom = 100;
     let gravity = 6;
     let thrust = 10;
-    let projectileBottom = 220;
-    let projectileLeft = 100;
+    let projectileBottom = spaceshipBottom;
+    let projectileLeft = spaceshipLeft;
 
 
 function startGame() {
@@ -36,13 +36,34 @@ function jump(){
 addEventListener('keyup', control);
 
 function generateMeteor() {
+    let meteorLeft = 2000;
+    let randomeHeight = Math.random() * 800;
+    let meteorBottom = randomeHeight;
+    const meteor = document.createElement('div');
+    meteor.classList.add('meteor');
+    gameDisplay.appendChild(meteor);
+    meteor.style.bottom = meteorBottom + 'px';
+    meteor.style.left = meteorLeft + 'px';
+
+    function moveMeteor(){
+        meteorLeft -= 2;
+        meteor.style.left = meteorLeft + 'px';
+        
+        if(meteorLeft === 0){
+            clearInterval(timerID);
+            gameDisplay.removeChild(meteor);
+        }
+    }
+    let timerID =  setInterval(moveMeteor, 20)
+    setTimeout(generateMeteor, 5000);
 
 }
+generateMeteor();
 
-})
+
 
 
 
 //document.addEventListener('click', function(){
     //console.log('hello world');
-//})
+})

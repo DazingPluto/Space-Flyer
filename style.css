@@ -2,7 +2,7 @@ body{
     margin: 0;
 }
 .container{
-    width: 100%;
+    width: 1800px;
     height: 920px;
     position: absolute;
 }
@@ -28,5 +28,11 @@ body{
 }
 .projectile{
     background-color: red;
+    position: absolute;
+}
+.meteor{
+    background-color: grey;
+    width: 300px;
+    height: 300px;
     position: absolute;
 }
