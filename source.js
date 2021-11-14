@@ -1,80 +1,168 @@
-document.addEventListener('DOMContentLoaded', () =>{
-    const spaceship =  document.querySelector('.spaceship');
-    const gameDisplay = document.querySelector('.container');
-    const ground = document.querySelector('ground');
-    const projectile = document.querySelector('.projectile');
+var canvas = document.getElementById("game");
+var ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+const x = canvas.width/2;
+const y = canvas.height/2;
+const enemies = [];
+const enemies2 = [];
 
-    let spaceshipLeft = 220;
-    let spaceshipBottom = 100;
-    let gravity = 6;
-    let thrust = 10;
-    let projectileBottom = spaceshipBottom;
-    let projectileLeft = spaceshipLeft;
-    let spaceshipPosition = spaceship.style.bottom;
-
-
-function startGame() {
-    spaceship.style.bottom = spaceshipBottom + 'px';
-    spaceship.style.left = spaceshipLeft + 'px';
-    if(spaceshipBottom > 10) spaceshipBottom -= gravity;
-    projectile.style.bottom = projectileBottom + 'px';
-    projectile.style.left =  projectileLeft + 'px';
-
-    if(spaceship.style.width === 60 + 'px'){function generateBullet(){
-        let bulletLeft = spaceship.style.left;
-        let bulletBottom = spaceship.style.bottom
-        const bullet = document.createElement('div');
-        bullet.classList.add('bullet');
-        gameDisplay.appendChild(bullet);
-        bullet.style.bottom = bulletBottom;
-        bullet.style.left = bulletLeft;
-    }}
+class Player{
+    constructor(x, y, radius, color){
+        this.x = x,
+        this.y = y,
+        this.radius = radius,
+        this.color = color
     }
- let timerID = setInterval(startGame, 20);
-
- function control(e) {
-     if(e.keyCode === 32){
-         jump()
-     }
- }
-
-
-function jump(){
-   if(spaceshipBottom < 750) spaceshipBottom += 130;
-    spaceship.style.bottom = spaceshipBottom + 'px';
-    console.log(spaceshipBottom);
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    }
+    update() {
+        this.draw()
+        this.x = this.y + this.velocity.x
+        this.y = this.x + this.velocity.y
+    }
 }
-addEventListener('keyup', control);
+let player = new Player (canvas.width / 2 , canvas.height / 2 , 30, 'red');
+class Projectile{
+    constructor(x, y, radius, color, velocity){
+        this.x = x
+        this.y = y
+        this.radius = radius
+        this.color = color
+        this.velocity = velocity
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        //ctx.closePath();
+    }
+    update() {
+        this.draw();
+        this.x = this.x + this.velocity.x
+        this.y = this.y + this.velocity.y 
+    }
+}
+class Enemy{
+    constructor(x, y, radius, color, velocity){
+        this.x = x
+        this.y = y
+        this.radius = radius
+        this.color = color
+        this.velocity = velocity
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        //ctx.closePath();
+    }
+    update() {
+        this.draw()
+        this.x = this.x + this.velocity.x 
+        this.y = this.y + this.velocity.y 
+    }
+}
 
-function generateMeteor() {
-    let meteorLeft = 2000;
-    let randomeHeight = Math.random() * 800;
-    let meteorBottom = randomeHeight;
-    const meteor = document.createElement('div');
-    meteor.classList.add('meteor');
-    gameDisplay.appendChild(meteor);
-    meteor.style.bottom = meteorBottom + 'px';
-    meteor.style.left = meteorLeft + 'px';
 
-    function moveMeteor(){
-        meteorLeft -= 2;
-        meteor.style.left = meteorLeft + 'px';
+document.addEventListener("keydown", movementHandler);
+
+function movementHandler(e) {
+    console.log("movement", e.key);
+  
+    switch (e.key) {
+      case "w":
         
-        if(meteorLeft === 0){
-            clearInterval(timerID);
-            gameDisplay.removeChild(meteor);
-        }
+        player.y - 10 >= 0 ? (player.y -= 10) : null;
+        break;
+      case "a":
+   
+        player.x - 10 >= 0 ? (player.x -= 10) : null;
+        break;
+      case "d":
+      
+        player.x + 10 <= canvas.width ? (player.x += 10) : null; 
+        break;
+      case "s":
+
+        player.y + 10 <= canvas.height ? (player.y += 10) : null;
+        break;
     }
-    let timerID =  setInterval(moveMeteor, 20)
-    setTimeout(generateMeteor, 5000);
+  }
+   const projectile = new Projectile(player.x, player.y, 30, 'blue', 
+      {
+        x: 1,
+        y: 1
+      })
+  const projectiles = []
+  function spawnEnemies() {
+    setInterval(() => {
+         const radius = Math.random() * (200 - 10) + 10
+ 
+         let x
+         let y
+ 
+         if(Math.random() < 0.5) {
+              x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius
+              y = Math.random() * canvas.height
+             //let y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+         }else{
+             x = Math.random() * canvas.width
+             y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+         }
+        
+         const color = 'Orange'
+         
+       const angle = Math.atan2(canvas.height / 2 - y, canvas.width  / 2 - x)
+         
+         
+      const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle)
+         }
+           //console.log(velocity);
+         enemies.push(new Enemy(x, y, radius, color, velocity));
+         console.log(enemies);
+    }, 2000)
+ }
+function animate(){
+      requestAnimationFrame(animate)
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      enemies.forEach((enemy, index) =>{
+          enemy.update();
 
-}
-generateMeteor();
+          projectiles.forEach((projectile, projectileIndex) =>{
+            const distance =  Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)
+            if(distance - enemy.radius - projectile.radius < 1){
+                console.log('remove from screen')
+                enemies.splice(index, 1)
+                projectiles.splice(projectileIndex, 1)
+            }
+          })
+      })
+      player.draw();
+      projectiles.forEach(projectile => {
+          projectile.update()
+        })
+  }
+  window.addEventListener('click', (event) =>{
+      const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)
+      console.log(angle);
+      const velocity = {
+          x:Math.cos(angle),
+          y:Math.sin(angle) 
+      }
+      console.log(event.clientX);
+      projectiles.push(new Projectile(player.x, player.y, 30, 'blue', velocity))
+  })
+  animate();
+  spawnEnemies();
 
 
-
-
-
-//document.addEventListener('click', function(){
-    //console.log('hello world');
-})
+  
