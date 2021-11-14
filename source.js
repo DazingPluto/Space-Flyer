@@ -1,14 +1,14 @@
-var canvas = document.getElementById("game");
-var ctx = canvas.getContext("2d");
+var canvas = document.getElementById("game");  //declaring canvas as a variable
+var ctx = canvas.getContext("2d");  //delcaring my animation context as 2d
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-const x = canvas.width/2;
+const x = canvas.width/2;      /// this sets the basic inner size of my canvas, making movement and placement of my class instances more accurate.
 const y = canvas.height/2;
-const enemies = [];
-const enemies2 = [];
+const enemies = []; // the array holding balls
+const enemies2 = [];// thre array holding bombs
 
 class Player{
-    constructor(x, y, radius, color){
+    constructor(x, y, radius, color){           //<----- here i create a class called player and give it some basic contructors.
         this.x = x,
         this.y = y,
         this.radius = radius,
@@ -16,7 +16,7 @@ class Player{
     }
     draw() {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false); // i used the arc function, in order to create a circle on the screen, not a square
         ctx.fillStyle = this.color;
         ctx.fill();
     }
@@ -26,18 +26,18 @@ class Player{
         this.y = this.x + this.velocity.y
     }
 }
-let player = new Player (canvas.width / 2 , canvas.height / 2 , 30, 'red');
+let player = new Player (canvas.width / 2 , canvas.height / 2 , 30, 'red');  //creates my new player :)
 class Projectile{
     constructor(x, y, radius, color, velocity){
-        this.x = x
+        this.x = x 
         this.y = y
         this.radius = radius
         this.color = color
-        this.velocity = velocity
+        this.velocity = velocity                        /// here we introduce projectile and give him the salve type of outline as player, since hes a cirle.. but we add velocity for constant angle specific movement.
     }
     draw() {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);     // exactly the same draw as player, we are creating another circle.
         ctx.fillStyle = this.color;
         ctx.fill();
         //ctx.closePath();
@@ -83,7 +83,7 @@ function movementHandler(e) {
         break;
       case "a":
    
-        player.x - 10 >= 0 ? (player.x -= 10) : null;
+        player.x - 10 >= 0 ? (player.x -= 10) : null;                   //here i basically re created the same movement system in shrek.. and applied it to Player.
         break;
       case "d":
       
@@ -101,20 +101,19 @@ function movementHandler(e) {
         y: 1
       })
   const projectiles = []
-  function spawnEnemies() {
+  function spawnEnemies() {// this created a spawn enemy function, holding everything i need to spawn and shape my enemies(balls)
     setInterval(() => {
-         const radius = Math.random() * (200 - 10) + 10
+         const radius = Math.random() * (200 - 10) + 10//// this looks weird, but all it says is, Make my raidus randome between 10 and 200.
  
-         let x
+         let x//i had to declare y and x as let, so i could constantly spawn enemies in at different locations.... 
          let y
  
          if(Math.random() < 0.5) {
-              x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius
+              x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius//this sets my spawn location to be 50% of the radius of the screen... since i placed this on x its basically allowing spawns to come from both horiszontal sides.
               y = Math.random() * canvas.height
-             //let y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
          }else{
              x = Math.random() * canvas.width
-             y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+             y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius//thid allows spawns to be 50% of the raidus of the canvas.height of the screen.. so the TOP and BOTTOM.
          }
         
          const color = 'Orange'
@@ -123,46 +122,50 @@ function movementHandler(e) {
          
          
       const velocity = {
-             x: Math.cos(angle),
+             x: Math.cos(angle),          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
              y: Math.sin(angle)
          }
            //console.log(velocity);
-         enemies.push(new Enemy(x, y, radius, color, velocity));
-         console.log(enemies);
+         enemies.push(new Enemy(x, y, radius, color, velocity));   // <---------here velocity is called, and new enemies are created with all of the data provided above, Then PUSHed to the end of enemies array
+         console.log(enemies);          //<-------this allows me to keep track of enemies and collision, to make sure everything is always looping and working.
     }, 2000)
  }
-function animate(){
-      requestAnimationFrame(animate)
+function animate(){//this is creating a function and scope for everything i want to animate.
+      requestAnimationFrame(animate)//I chose to use request animation frame, for the final stages of my project.. this loops and clears everything in its SCOPE. which allows everything to move.
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       enemies.forEach((enemy, index) =>{
-          enemy.update();
+        const distance =  Math.hypot(player.x - enemy.x, player.y - enemy.y)/// end game 
+            if(distance - enemy.radius - player.radius < 1){
+                console.log('go')
+            }
+          enemy.update();// this calls enemys' update function
 
           projectiles.forEach((projectile, projectileIndex) =>{
-            const distance =  Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)
+            const distance =  Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)/// collision detection between bombs and Balls.
             if(distance - enemy.radius - projectile.radius < 1){
                 console.log('remove from screen')
-                enemies.splice(index, 1)
-                projectiles.splice(projectileIndex, 1)
+                enemies.splice(index, 1)// removes the selected index out of the array
+                projectiles.splice(projectileIndex, 1)// removes the selected index out of the array
             }
           })
       })
-      player.draw();
-      projectiles.forEach(projectile => {
+      player.draw();//draws player, over and over as you move
+      projectiles.forEach(projectile => {//draws bombs
           projectile.update()
         })
-  }
-  window.addEventListener('click', (event) =>{
-      const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)
+  }                         //event was use to find the X, Y location of my mouse.. So i could then use those locations in for Math.atan2() formula.. to create trajectory for my Bombs
+  window.addEventListener('click', (event) =>{//this adds a click event listen i call to project a bullet
+      const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)//here, i made a const Angle, which equals the single angle we get from the output of Math.atan2
       console.log(angle);
       const velocity = {
-          x:Math.cos(angle),
-          y:Math.sin(angle) 
+          x:Math.cos(angle),//cos is always X
+          y:Math.sin(angle)//sin is always Y 
       }
       console.log(event.clientX);
       projectiles.push(new Projectile(player.x, player.y, 30, 'blue', velocity))
   })
-  animate();
-  spawnEnemies();
+  animate();       // animate loop called
+  spawnEnemies();       // ball spawn called
 
 
   
