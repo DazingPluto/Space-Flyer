@@ -9,14 +9,21 @@
   <link rel="stylesheet" href="./style3.css">
 </head>
 <body>
+  <div class="startGameContainer" id="startModel">
+    <div class="startGame" >
+      <h1 id="scoreAfter">0</h1>
+      <p class="text">Score!</p>
+      <div>
+        <button class='startButton' id='startBtn'>Start Game</button>
+      </div>
+    </div>
+  </div>
   <div id="container">
     <aside id="top-left"><h2>SpaceBalls 3000</h2></aside>
     <aside id="top-right"><h2 id="score"></h2></aside>
     <main>
         <canvas id="game"><!-- play it, a game --></canvas>
     </main>
-    <aside id="btm-left"><h2 id="score">100</h2></aside>
-    <aside id="btm-right"><h2 id="status">play the game</h2></aside>
   </div>
   <script src="./source.js"></script>
 </body>

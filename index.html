@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Flyer</title>
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SpaceBalls</title>
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <link rel="stylesheet" href="./style3.css">
 </head>
 <body>
-    <div class="container">
-        <div class="sky">
-            <div class="spaceship"></div>
-            <div class="projectile"></div>
-        </div>
-        <div class="ground"></div>
+  <div class="startGameContainer" id="startModel">
+    <div class="startGame" >
+      <h1 id="scoreAfter">0</h1>
+      <p class="text">Score!</p>
+      <div>
+        <button class='startButton' id='startBtn'>Start Game</button>
+      </div>
     </div>
-  
-<script src="./source.js"></script>
+  </div>
+  <div id="container">
+    <aside id="top-left"><h2>SpaceBalls 3000</h2></aside>
+    <aside id="top-right"><h2 id="score"></h2></aside>
+    <main>
+        <canvas id="game"><!-- play it, a game --></canvas>
+    </main>
+  </div>
+  <script src="./source.js"></script>
 </body>
 </html>

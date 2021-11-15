@@ -2,32 +2,58 @@ html,body {
     margin: 0;
     padding: 0;
   }
+  main {
+    grid-area: game;
+  }
   
   body {
     padding-top: 1em;
     text-align: center;
     background-color: black;
-    /* background-image: url('../img/dungeonhell.png'); */
     background-size: cover;
     background-repeat: space;
   }
   
   h1, h2 {
     font-family: 'Press Start 2P', monospace;
-    /* font-family: monospace; */
     color: goldenrod;
   }
   
   canvas {
-    /* background-image: url('../img/stone.png'); */
-    /* background-repeat: repeat; */
     background-color: #222;
     width: 100%;
     height: 100;
   }
+  .startGameContainer{
+      background-color: purple;
+      display: flex;
+      position:absolute;
+      max-width:800px;
+      width: 600px;
+      height: 300px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 360px;
+  }
+  .startGame{
+      position: absolute;
+      top:50%;
+      left:50%;
+      transform: translate(-50%, -50%);
+  }
+  .startButton{
+      width: 160px;
+      height: 80px;
+      border-radius: 10px;
+      border: none;
+  }
+  .text{
+      color: white;
+  }
   
   #container {
-  max-width: 50em;
+  max-width: 80em;
   /* height: 70vh; */
   background-color: rgb(10, 11, 100);
   margin: 0 auto;
@@ -37,8 +63,7 @@ html,body {
   grid-template-rows: .25fr .5fr .25fr;
   grid-template-columns: .25fr .5fr .25fr;
   grid-template-areas: "top-left top-left top-right"
-                        "game game game"
-                        "btm-left btm-right btm-right";
+                        "game game game";
   }
   
   #top-left, #top-right, #btm-left, #btm-right {
@@ -50,27 +75,21 @@ html,body {
   
   #top-left {
     grid-area: top-left;
-    background-image: url('blob:https://imgur.com/75681e56-57b9-4d11-b965-a2ebcfd573be');
+    background-image: url('');
   }
   
   #top-right {
     grid-area: top-right;
-    background-image: url('blob:https://imgur.com/75681e56-57b9-4d11-b965-a2ebcfd573be'); 
+    background-image: url(''); 
   }
-  
-  main {
-    grid-area: game;
-  }
-  
-  
-  #btm-left {
+   #btm-left {
     grid-area: btm-left;
-    background-image: url('blob:https://imgur.com/75681e56-57b9-4d11-b965-a2ebcfd573be');
+    background-image: url('');
   }
   
   #btm-right {
     grid-area: btm-right;
-    background-image: url('blob:https://imgur.com/75681e56-57b9-4d11-b965-a2ebcfd573be');
+    background-image: url('');
   }
   #game{
     background-image: url('https://i.imgur.com/F88ocPV.jpg'); 

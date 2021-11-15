@@ -1,13 +1,24 @@
 const canvas = document.getElementById("game");  //declaring canvas as a variable
 const ctx = canvas.getContext("2d");  //delcaring my animation context as 2d
-const score = document.querySelector('#score');
+const scoreID = document.querySelector('#score');
+const startButton = document.querySelector('#startBtn');
+const startModel = document.querySelector('#startModel');
+const scoreAfter = document.querySelector('#scoreAfter');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 const x = canvas.width/2;      /// this sets the basic inner size of my canvas, making movement and placement of my class instances more accurate.
 const y = canvas.height/2;
-const enemies = []; // the array holding balls
-const enemies2 = [];// thre array holding bombs
-
+let enemies = []; // the array holding balls
+//let enemies2 = [];// thre array holding bombs
+let projectiles = [];
+function reset(){
+     enemies = []; // the array holding balls
+     player = new Player (canvas.width / 2 , canvas.height / 2 , 30, 'red');
+     projectiles = [];
+     score = 0
+     scoreID.innerHTML = score;
+     scoreAfter.innerHTML = score;
+}
 class Player{
     constructor(x, y, radius, color){           //<----- here i create a class called player and give it some basic contructors.
         this.x = x,
@@ -101,7 +112,6 @@ function movementHandler(e) {
         x: 1,
         y: 1
       })
-  const projectiles = []
   function spawnEnemies() {// this created a spawn enemy function, holding everything i need to spawn and shape my enemies(balls)
     setInterval(() => {
          const radius = Math.random() * (100 - 5) + 10//// this looks weird, but all it says is, Make my raidus randome between 10 and 200.
@@ -123,8 +133,8 @@ function movementHandler(e) {
          
          
       const velocity = {
-             x: Math.cos(angle),          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
-             y: Math.sin(angle)
+             x: Math.cos(angle) *4,          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
+             y: Math.sin(angle) *4
          }
            //console.log(velocity);
          enemies.push(new Enemy(x, y, radius, color, velocity));   // <---------here velocity is called, and new enemies are created with all of the data provided above, Then PUSHed to the end of enemies array
@@ -132,6 +142,7 @@ function movementHandler(e) {
     }, 1000)
  }
 let animateOff
+let score = 0;
 function animate(){//this is creating a function and scope for everything i want to animate.
  animateOff = requestAnimationFrame(animate)//I chose to use request animation frame, for the final stages of my project.. this loops and clears everything in its SCOPE. which allows everything to move.
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -140,13 +151,17 @@ function animate(){//this is creating a function and scope for everything i want
             if(distance - enemy.radius - player.radius < 1){
                 //console.log('go')
                 cancelAnimationFrame(animateOff)
+                startModel.style.display = 'flex';
+                scoreAfter.innerHTML = score;
             }
           enemy.update();// this calls enemys' update function
 
           projectiles.forEach((projectile, projectileIndex) =>{
             const distance =  Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)/// collision detection between bombs and Balls.
             if(distance - enemy.radius - projectile.radius < 1){
-                console.log('remove from screen')
+                    score += 10;
+                    scoreID.innerHTML = score;
+                    console.log(score);
                 enemies.splice(index, 1)// removes the selected index out of the array
                 projectiles.splice(projectileIndex, 1)// removes the selected index out of the array
             }
@@ -172,9 +187,14 @@ function animate(){//this is creating a function and scope for everything i want
       }
       console.log(event.clientX);
       projectiles.push(new Projectile(player.x, player.y, 30, 'blue', velocity))
+  }) 
+  startButton.addEventListener('click', () => {
+        reset();
+        console.log('go');
+        animate();       // animate loop called
+        spawnEnemies(); 
+        startModel.style.display = 'none';
   })
-  animate();       // animate loop called
-  spawnEnemies();       // ball spawn called
 
 
   
