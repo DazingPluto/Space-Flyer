@@ -58,6 +58,8 @@ and i would have NO PROJECTILE!!! sad world :(....
 
 Learning how to be confident with classes was also very hard, because my first version used div and not canvas, which involves a completely different process.
 
+Restart is still a huge blocker, the restart effect my spawn time of all my enemies by speeding it up to a un-realistic amount.
+
 luckily i had friends like Cam, to help me find motivation to de-bugg my code :).
 
 ----------Thats All Folks!------------------------
