@@ -134,8 +134,8 @@ function movementHandler(e) {
          
          
       const velocity = {
-             x: Math.cos(angle) * 5,          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
-             y: Math.sin(angle) * 5
+             x: Math.cos(angle) * 2,          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
+             y: Math.sin(angle) * 2
          }
            //console.log(velocity);
          enemies.push(new Enemy(x, y, radius, color, velocity));   // <---------here velocity is called, and new enemies are created with all of the data provided above, Then PUSHed to the end of enemies array
@@ -183,8 +183,8 @@ function animate(){//this is creating a function and scope for everything i want
       const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)//here, i made a const Angle, which equals the single angle we get from the output of Math.atan2
       console.log(angle);
       const velocity = {
-          x:Math.cos(angle) * 14,//cos is always X
-          y:Math.sin(angle) * 14//sin is always Y 
+          x:Math.cos(angle) * 6,//cos is always X
+          y:Math.sin(angle) * 6//sin is always Y 
       }
       console.log(event.clientX);
       projectiles.push(new Projectile(player.x, player.y, 30, 'blue', velocity))
