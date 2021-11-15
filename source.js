@@ -134,8 +134,8 @@ function movementHandler(e) {
          
          
       const velocity = {
-             x: Math.cos(angle) * 2,          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
-             y: Math.sin(angle) * 2
+             x: Math.cos(angle)  ,          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
+             y: Math.sin(angle)  
          }
            //console.log(velocity);
          enemies.push(new Enemy(x, y, radius, color, velocity));   // <---------here velocity is called, and new enemies are created with all of the data provided above, Then PUSHed to the end of enemies array
