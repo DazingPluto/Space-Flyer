@@ -140,7 +140,7 @@ function movementHandler(e) {
            //console.log(velocity);
          enemies.push(new Enemy(x, y, radius, color, velocity));   // <---------here velocity is called, and new enemies are created with all of the data provided above, Then PUSHed to the end of enemies array
          console.log(enemies);          //<-------this allows me to keep track of enemies and collision, to make sure everything is always looping and working.
-    }, 900)
+    }, 3000)
  }
 let animateOff
 let score = 0;
