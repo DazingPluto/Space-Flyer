@@ -12,6 +12,8 @@ const y = canvas.height/2;
 let enemies = []; // the array holding balls
 //let enemies2 = [];// thre array holding bombs
 let projectiles = [];
+let backgroundAudio = new Audio();
+backgroundAudio.src = "/Users/huntermcguire/Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/Spaceballs theme.wav";
 function reset(){
      enemies = []; // the array holding balls
      player = new Player (canvas.width / 2 , canvas.height / 2 , 30, 'red');
@@ -153,6 +155,8 @@ function animate(){//this is creating a function and scope for everything i want
                 cancelAnimationFrame(animateOff)
                 startModel.style.display = 'flex';
                 scoreAfter.innerHTML = score;
+                backgroundAudio.pause();
+                backgroundAudio.currentTime = 0;
             }
           enemy.update();// this calls enemys' update function
 
@@ -176,6 +180,7 @@ function animate(){//this is creating a function and scope for everything i want
             }, 0)
         }
     })
+    backgroundAudio.play();
   }                         //event was use to find the X, Y location of my mouse.. So i could then use those locations in for Math.atan2() formula.. to create trajectory for my Bombs
   window.addEventListener('click', (event) =>{//this adds a click event listen i call to project a bullet
       const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)//here, i made a const Angle, which equals the single angle we get from the output of Math.atan2
