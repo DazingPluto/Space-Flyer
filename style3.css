@@ -15,6 +15,7 @@ html,body {
   }
   
   h1, h2 {
+    font-size: 80px;
     font-family: 'Monoton', cursive;
     color: dark grey;
   }
@@ -25,13 +26,13 @@ html,body {
     height: 100;
   }
   .startGameContainer{
-      background-color: purple;
+      background-color: white;
       display: flex;
       position:absolute;
       max-width:800px;
       width: 600px;
-      height: 300px;
-      top: 50%;
+      height: 500px;
+      top: 60%;
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 360px;
@@ -47,9 +48,11 @@ html,body {
       height: 80px;
       border-radius: 10px;
       border: none;
+      color: white;
+      background-color: purple;
   }
   .text{
-      color: white;
+      color: grey;
   }
   
   #container {
@@ -94,5 +97,8 @@ html,body {
   #game{
     background-image: url('https://i.imgur.com/F88ocPV.jpg'); 
     image-orientation: inherit;
+  }
+  #scoreAfter{
+      font-size: 100px;
   }
   
