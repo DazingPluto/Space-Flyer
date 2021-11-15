@@ -4,6 +4,7 @@ const scoreID = document.querySelector('#score');
 const startButton = document.querySelector('#startBtn');
 const startModel = document.querySelector('#startModel');
 const scoreAfter = document.querySelector('#scoreAfter');
+let myMusic
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 const x = canvas.width/2;      /// this sets the basic inner size of my canvas, making movement and placement of my class instances more accurate.
@@ -91,19 +92,19 @@ function movementHandler(e) {
     switch (e.key) {
       case "w":
         
-        player.y - 10 >= 0 ? (player.y -= 10) : null;
+        player.y - 20 >= 0 ? (player.y -= 10) : null;
         break;
       case "a":
    
-        player.x - 10 >= 0 ? (player.x -= 10) : null;                   //here i basically re created the same movement system in shrek.. and applied it to Player.
+        player.x - 20 >= 0 ? (player.x -= 10) : null;                   //here i basically re created the same movement system in shrek.. and applied it to Player.
         break;
       case "d":
       
-        player.x + 10 <= canvas.width ? (player.x += 10) : null; 
+        player.x + 20 <= canvas.width ? (player.x += 10) : null; 
         break;
       case "s":
 
-        player.y + 10 <= canvas.height ? (player.y += 10) : null;
+        player.y + 20 <= canvas.height ? (player.y += 10) : null;
         break;
     }
   }
@@ -114,7 +115,7 @@ function movementHandler(e) {
       })
   function spawnEnemies() {// this created a spawn enemy function, holding everything i need to spawn and shape my enemies(balls)
     setInterval(() => {
-         const radius = Math.random() * (100 - 5) + 10//// this looks weird, but all it says is, Make my raidus randome between 10 and 200.
+         const radius = Math.random() * (100 - 5) + 5//// this looks weird, but all it says is, Make my raidus randome between 10 and 200.
  
          let x//i had to declare y and x as let, so i could constantly spawn enemies in at different locations.... 
          let y
@@ -133,13 +134,13 @@ function movementHandler(e) {
          
          
       const velocity = {
-             x: Math.cos(angle) *4,          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
-             y: Math.sin(angle) *4
+             x: Math.cos(angle) * 5,          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
+             y: Math.sin(angle) * 5
          }
            //console.log(velocity);
          enemies.push(new Enemy(x, y, radius, color, velocity));   // <---------here velocity is called, and new enemies are created with all of the data provided above, Then PUSHed to the end of enemies array
          console.log(enemies);          //<-------this allows me to keep track of enemies and collision, to make sure everything is always looping and working.
-    }, 1000)
+    }, 900)
  }
 let animateOff
 let score = 0;
