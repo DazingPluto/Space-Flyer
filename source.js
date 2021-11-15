@@ -187,7 +187,7 @@ function animate(){//this is creating a function and scope for everything i want
           y:Math.sin(angle) * 6//sin is always Y 
       }
       console.log(event.clientX);
-      projectiles.push(new Projectile(player.x, player.y, 30, 'blue', velocity))
+      projectiles.push(new Projectile(player.x, player.y, 8, 'blue', velocity))
   }) 
   startButton.addEventListener('click', () => {
         reset();
