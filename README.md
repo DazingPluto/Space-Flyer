@@ -49,3 +49,17 @@ End game!
 when i end the gane and restart, the enemy respawn time gets absolutely jacked up and i dont know how to fix it.
 
 I welcome anyone to fork and clone, lets fix it together!!
+
+
+---------BLOCKERS----------------------------------
+
+Man, there where a lot!!! Math.atan2() was definately the biggest blocker i had.. it took me two days to figure out how to finally get everything structored and i almost gave up MANY time.. without atan2() my meteors(balls), would be very boring!!
+and i would have NO PROJECTILE!!! sad world :(....
+
+Learning how to be confident with classes was also very hard, because my first version used div and not canvas, which involves a completely different process.
+
+luckily i had friends like Cam, to help me find motivation to de-bugg my code :).
+
+----------Thats All Folks!------------------------
+
+            Enjoy the Game!!!
