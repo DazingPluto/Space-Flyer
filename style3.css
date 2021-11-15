@@ -29,11 +29,11 @@ html,body {
   #container {
   max-width: 50em;
   /* height: 70vh; */
-  background-color: blue;
+  background-color: rgb(10, 11, 100);
   margin: 0 auto;
-  padding: 1px;
+  padding: 1em;
   display: grid;
-  grid-gap: 1px;
+  grid-gap: 1em;
   grid-template-rows: .25fr .5fr .25fr;
   grid-template-columns: .25fr .5fr .25fr;
   grid-template-areas: "top-left top-left top-right"
@@ -45,17 +45,17 @@ html,body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #222;
+    background-color:rgb(161, 15, 161);
   }
   
   #top-left {
     grid-area: top-left;
+    background-image: url('blob:https://imgur.com/75681e56-57b9-4d11-b965-a2ebcfd573be');
   }
   
   #top-right {
     grid-area: top-right;
-    /* background-color: #222; */
-    /* background-image: url('../img/funky-lines.png'); */
+    background-image: url('blob:https://imgur.com/75681e56-57b9-4d11-b965-a2ebcfd573be'); 
   }
   
   main {
@@ -65,10 +65,15 @@ html,body {
   
   #btm-left {
     grid-area: btm-left;
-    /* background-color: #222; */
+    background-image: url('blob:https://imgur.com/75681e56-57b9-4d11-b965-a2ebcfd573be');
   }
   
   #btm-right {
     grid-area: btm-right;
-    /* background-color: #222; */
+    background-image: url('blob:https://imgur.com/75681e56-57b9-4d11-b965-a2ebcfd573be');
   }
+  #game{
+    background-image: url('https://i.imgur.com/F88ocPV.jpg'); 
+    image-orientation: inherit;
+  }
+  

@@ -1,5 +1,6 @@
-var canvas = document.getElementById("game");  //declaring canvas as a variable
-var ctx = canvas.getContext("2d");  //delcaring my animation context as 2d
+const canvas = document.getElementById("game");  //declaring canvas as a variable
+const ctx = canvas.getContext("2d");  //delcaring my animation context as 2d
+const score = document.querySelector('#score');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 const x = canvas.width/2;      /// this sets the basic inner size of my canvas, making movement and placement of my class instances more accurate.
@@ -103,7 +104,7 @@ function movementHandler(e) {
   const projectiles = []
   function spawnEnemies() {// this created a spawn enemy function, holding everything i need to spawn and shape my enemies(balls)
     setInterval(() => {
-         const radius = Math.random() * (200 - 10) + 10//// this looks weird, but all it says is, Make my raidus randome between 10 and 200.
+         const radius = Math.random() * (100 - 5) + 10//// this looks weird, but all it says is, Make my raidus randome between 10 and 200.
  
          let x//i had to declare y and x as let, so i could constantly spawn enemies in at different locations.... 
          let y
@@ -128,15 +129,17 @@ function movementHandler(e) {
            //console.log(velocity);
          enemies.push(new Enemy(x, y, radius, color, velocity));   // <---------here velocity is called, and new enemies are created with all of the data provided above, Then PUSHed to the end of enemies array
          console.log(enemies);          //<-------this allows me to keep track of enemies and collision, to make sure everything is always looping and working.
-    }, 2000)
+    }, 1000)
  }
+let animateOff
 function animate(){//this is creating a function and scope for everything i want to animate.
-      requestAnimationFrame(animate)//I chose to use request animation frame, for the final stages of my project.. this loops and clears everything in its SCOPE. which allows everything to move.
+ animateOff = requestAnimationFrame(animate)//I chose to use request animation frame, for the final stages of my project.. this loops and clears everything in its SCOPE. which allows everything to move.
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       enemies.forEach((enemy, index) =>{
         const distance =  Math.hypot(player.x - enemy.x, player.y - enemy.y)/// end game 
             if(distance - enemy.radius - player.radius < 1){
-                console.log('go')
+                //console.log('go')
+                cancelAnimationFrame(animateOff)
             }
           enemy.update();// this calls enemys' update function
 
@@ -150,16 +153,22 @@ function animate(){//this is creating a function and scope for everything i want
           })
       })
       player.draw();//draws player, over and over as you move
-      projectiles.forEach(projectile => {//draws bombs
+      projectiles.forEach((projectile, index) => {//draws bombs
           projectile.update()
-        })
+
+          if(projectile.x + projectile.radius < 0 || projectile.x - projectile.radius > canvas.width || projectiles.y + projectile.radius < 0 || projectile.y - projectile.radius > canvas.height){
+            setTimeout(() => {// removes the selected index out of the array
+            projectiles.splice(index, 1)// removes the selected index out of the array
+            }, 0)
+        }
+    })
   }                         //event was use to find the X, Y location of my mouse.. So i could then use those locations in for Math.atan2() formula.. to create trajectory for my Bombs
   window.addEventListener('click', (event) =>{//this adds a click event listen i call to project a bullet
       const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)//here, i made a const Angle, which equals the single angle we get from the output of Math.atan2
       console.log(angle);
       const velocity = {
-          x:Math.cos(angle),//cos is always X
-          y:Math.sin(angle)//sin is always Y 
+          x:Math.cos(angle) * 14,//cos is always X
+          y:Math.sin(angle) * 14//sin is always Y 
       }
       console.log(event.clientX);
       projectiles.push(new Projectile(player.x, player.y, 30, 'blue', velocity))
