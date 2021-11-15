@@ -53,7 +53,7 @@ class Projectile{
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);     // exactly the same draw as player, we are creating another circle.
         ctx.fillStyle = this.color;
         ctx.fill();
-        //ctx.closePath();
+        
     }
     update() {
         this.draw();
@@ -87,9 +87,8 @@ class Enemy{
 document.addEventListener("keydown", movementHandler);
 
 function movementHandler(e) {
-    console.log("movement", e.key);
-  
-    switch (e.key) {
+        
+        switch (e.key) {
       case "w":
         
         player.y - 20 >= 0 ? (player.y -= 10) : null;
@@ -137,9 +136,9 @@ function movementHandler(e) {
              x: Math.cos(angle) * 2 ,          //here is where i set my x and y velocity to be always centered, that way all of my projectiles move in a baracading mannor
              y: Math.sin(angle) * 2 
          }
-           //console.log(velocity);
+           
          enemies.push(new Enemy(x, y, radius, color, velocity));   // <---------here velocity is called, and new enemies are created with all of the data provided above, Then PUSHed to the end of enemies array
-         console.log(enemies);          //<-------this allows me to keep track of enemies and collision, to make sure everything is always looping and working.
+                 //<-------this allows me to keep track of enemies and collision, to make sure everything is always looping and working.
     }, 1000)
  }
 let animateOff
@@ -162,7 +161,6 @@ function animate(){//this is creating a function and scope for everything i want
             if(distance - enemy.radius - projectile.radius < 1){
                     score += 10;
                     scoreID.innerHTML = score;
-                    console.log(score);
                 enemies.splice(index, 1)// removes the selected index out of the array
                 projectiles.splice(projectileIndex, 1)// removes the selected index out of the array
             }
@@ -186,7 +184,6 @@ function animate(){//this is creating a function and scope for everything i want
           x:Math.cos(angle) * 6,//cos is always X
           y:Math.sin(angle) * 6//sin is always Y 
       }
-      console.log(event.clientX);
       projectiles.push(new Projectile(player.x, player.y, 8, 'blue', velocity))
   }) 
   startButton.addEventListener('click', () => {
